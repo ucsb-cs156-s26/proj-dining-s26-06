@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/proj-dining-s26-06
 owner: ucsb-cs156-s26
 repo_name: proj-dining-s26-06
-pull_requests: []
+pull_requests: [{"author":{"id":"U_kgDOCvx1hg","is_bot":false,"login":"aidenhunter66","name":"Aiden"},"headRefName":"ah-updating-react","number":19,"title":"Updated to react router v7","url":"https://github.com/ucsb-cs156-s26/proj-dining-s26-06/pull/19"}]
