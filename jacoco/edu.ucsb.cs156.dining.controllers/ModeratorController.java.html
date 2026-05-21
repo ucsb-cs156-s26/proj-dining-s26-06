@@ -5,6 +5,7 @@ import edu.ucsb.cs156.dining.entities.Moderator;
 import edu.ucsb.cs156.dining.repositories.ModeratorRepository;
 import edu.ucsb.cs156.dining.utilities.CanonicalFormConverter;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = &quot;Moderators&quot;)
 @RequestMapping(&quot;/api/admin/moderators&quot;)
 @RestController
-<span class="fc" id="L27">@Slf4j</span>
-<span class="fc" id="L28">public class ModeratorController extends ApiController {</span>
+<span class="fc" id="L28">@Slf4j</span>
+<span class="fc" id="L29">public class ModeratorController extends ApiController {</span>
   @Autowired ModeratorRepository moderatorRepository;
 
   @Autowired ObjectMapper mapper;
@@ -40,10 +41,10 @@ import org.springframework.web.bind.annotation.RestController;
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
   @PostMapping(&quot;/post&quot;)
   public Moderator postInstructor(@RequestParam String email) {
-<span class="fc" id="L43">    String convertedEmail = CanonicalFormConverter.convertToValidEmail(email);</span>
-<span class="fc" id="L44">    Moderator moderator = Moderator.builder().email(convertedEmail).build();</span>
-<span class="fc" id="L45">    moderatorRepository.save(moderator);</span>
-<span class="fc" id="L46">    return moderator;</span>
+<span class="fc" id="L44">    String convertedEmail = CanonicalFormConverter.convertToValidEmail(email);</span>
+<span class="fc" id="L45">    Moderator moderator = Moderator.builder().email(convertedEmail).build();</span>
+<span class="fc" id="L46">    moderatorRepository.save(moderator);</span>
+<span class="fc" id="L47">    return moderator;</span>
   }
 
   /**
@@ -53,27 +54,24 @@ import org.springframework.web.bind.annotation.RestController;
    */
   @Operation(summary = &quot;List all Moderators&quot;)
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
-  @GetMapping(&quot;/get&quot;)
-  public Iterable&lt;Moderator&gt; allInstructors() {
-<span class="fc" id="L58">    Iterable&lt;Moderator&gt; moderators = moderatorRepository.findAll();</span>
-<span class="fc" id="L59">    return moderators;</span>
+  @GetMapping(&quot;/all&quot;)
+  public Iterable&lt;Moderator&gt; allModerators() {
+<span class="fc" id="L59">    Iterable&lt;Moderator&gt; moderators = moderatorRepository.findAll();</span>
+<span class="fc" id="L60">    return moderators;</span>
   }
 
   /** Delete an Moderator by email, available only to Admins. */
   @Operation(summary = &quot;Delete a Moderator by email&quot;)
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
   @DeleteMapping(&quot;/delete&quot;)
-  public ResponseEntity&lt;String&gt; deleteInstructor(@RequestParam String email) {
-<span class="fc" id="L67">    Moderator moderator = moderatorRepository.findById(email).orElse(null);</span>
-
-<span class="fc bfc" id="L69" title="All 2 branches covered.">    if (moderator == null) {</span>
-<span class="fc" id="L70">      return ResponseEntity.status(404)</span>
-<span class="fc" id="L71">          .body(String.format(&quot;Moderator with email %s not found.&quot;, email));</span>
+  public ResponseEntity&lt;String&gt; deleteModerator(
+      @Parameter(name = &quot;email&quot;) @RequestParam String email) {
+<span class="fc" id="L69">    Moderator moderator = moderatorRepository.findById(email).orElse(null);</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">    if (moderator == null) {</span>
+<span class="fc" id="L71">      return ResponseEntity.status(404).body(&quot;Moderator with email %s not found.&quot;.formatted(email));</span>
     }
-
-<span class="fc" id="L74">    moderatorRepository.delete(moderator);</span>
-<span class="fc" id="L75">    return ResponseEntity.status(200)</span>
-<span class="fc" id="L76">        .body(String.format(&quot;Moderator with email %s deleted.&quot;, email));</span>
+<span class="fc" id="L73">    moderatorRepository.delete(moderator);</span>
+<span class="fc" id="L74">    return ResponseEntity.status(200).body(&quot;Moderator with email %s deleted.&quot;.formatted(email));</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
