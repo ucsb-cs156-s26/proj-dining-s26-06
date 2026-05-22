@@ -1,24 +1,18 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 
 export default function ReviewForm({ initialItemName, submitAction }) {
-  const [comments, setComments] = React.useState("");
-  const [stars, setStars] = React.useState(5);
-  const [dateServed, setDateServed] = React.useState(() => {
-    return new Date().toISOString().slice(0, 16); // Default to now, in YYYY-MM-DDTHH:mm format
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      reviewerComments: "",
+      itemsStars: 5,
+      dateItemServed: new Date().toISOString().slice(0, 16)
+    }
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    submitAction({
-      reviewerComments: comments,
-      itemsStars: stars,
-      dateItemServed: dateServed,
-    });
-  };
-
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit(submitAction)}>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="review-item-name">Item Name</Form.Label>
         <Form.Control
@@ -35,8 +29,7 @@ export default function ReviewForm({ initialItemName, submitAction }) {
           id="review-comments"
           as="textarea"
           rows={3}
-          value={comments}
-          onChange={(e) => setComments(e.target.value)}
+          {...register("reviewerComments")}
         />
       </Form.Group>
 
@@ -44,8 +37,7 @@ export default function ReviewForm({ initialItemName, submitAction }) {
         <Form.Label htmlFor="review-stars">Stars (1 to 5)</Form.Label>
         <Form.Select
           id="review-stars"
-          value={stars}
-          onChange={(e) => setStars(Number(e.target.value))}
+          {...register("itemsStars", { required: true, min: 1, max: 5, valueAsNumber: true })}
         >
           {[1, 2, 3, 4, 5].map((num) => (
             <option key={num} value={num}>
@@ -62,8 +54,7 @@ export default function ReviewForm({ initialItemName, submitAction }) {
         <Form.Control
           id="review-date"
           type="datetime-local"
-          value={dateServed}
-          onChange={(e) => setDateServed(e.target.value)}
+          {...register("dateItemServed", { required: true, valueAsDate: true })}
         />
       </Form.Group>
 
