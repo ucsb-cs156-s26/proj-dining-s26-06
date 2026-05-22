@@ -15,6 +15,7 @@ export default function ReviewForm({ initialItemName, submitAction }) {
     <Form onSubmit={handleSubmit(submitAction)}>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="review-item-name">Item Name</Form.Label>
+
         <Form.Control
           id="review-item-name"
           type="text"
@@ -25,6 +26,7 @@ export default function ReviewForm({ initialItemName, submitAction }) {
 
       <Form.Group className="mb-3">
         <Form.Label htmlFor="review-comments">Comments</Form.Label>
+
         <Form.Control
           id="review-comments"
           as="textarea"
@@ -35,6 +37,7 @@ export default function ReviewForm({ initialItemName, submitAction }) {
 
       <Form.Group className="mb-3">
         <Form.Label htmlFor="review-stars">Stars (1 to 5)</Form.Label>
+
         <Form.Select
           id="review-stars"
           {...register("itemsStars", { valueAsNumber: true })}
@@ -51,6 +54,7 @@ export default function ReviewForm({ initialItemName, submitAction }) {
         <Form.Label htmlFor="review-date">
           Date and Time Item was Served
         </Form.Label>
+
         <Form.Control
           id="review-date"
           type="datetime-local"
@@ -58,7 +62,7 @@ export default function ReviewForm({ initialItemName, submitAction }) {
         />
       </Form.Group>
 
-      <Button type="submit">Submit Review</Button>
+      <Button type="submit">{buttonLabel}</Button>
     </Form>
   );
 }
