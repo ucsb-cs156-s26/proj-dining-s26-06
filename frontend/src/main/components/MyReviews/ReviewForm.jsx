@@ -54,7 +54,7 @@ export default function ReviewForm({ initialItemName, submitAction }) {
         <Form.Control
           id="review-date"
           type="datetime-local"
-          {...register("dateItemServed", { valueAsDate: true })}
+          {...register("dateItemServed")}
         />
       </Form.Group>
 
