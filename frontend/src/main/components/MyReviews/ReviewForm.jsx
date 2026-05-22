@@ -7,8 +7,8 @@ export default function ReviewForm({ initialItemName, submitAction }) {
     defaultValues: {
       reviewerComments: "",
       itemsStars: 5,
-      dateItemServed: new Date().toISOString().slice(0, 16)
-    }
+      dateItemServed: new Date().toISOString().slice(0, 16),
+    },
   });
 
   return (
@@ -37,7 +37,7 @@ export default function ReviewForm({ initialItemName, submitAction }) {
         <Form.Label htmlFor="review-stars">Stars (1 to 5)</Form.Label>
         <Form.Select
           id="review-stars"
-          {...register("itemsStars", { required: true, min: 1, max: 5, valueAsNumber: true })}
+          {...register("itemsStars", { valueAsNumber: true })}
         >
           {[1, 2, 3, 4, 5].map((num) => (
             <option key={num} value={num}>
@@ -54,7 +54,7 @@ export default function ReviewForm({ initialItemName, submitAction }) {
         <Form.Control
           id="review-date"
           type="datetime-local"
-          {...register("dateItemServed", { required: true, valueAsDate: true })}
+          {...register("dateItemServed", { valueAsDate: true })}
         />
       </Form.Group>
 
