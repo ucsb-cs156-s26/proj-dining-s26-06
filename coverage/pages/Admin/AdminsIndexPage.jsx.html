@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for pages/Reviews/EditReviewPage.jsx</title>
+    <title>Code coverage report for pages/Admin/AdminsIndexPage.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/Reviews</a> EditReviewPage.jsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">pages/Admin</a> AdminsIndexPage.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -114,9 +114,7 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -125,31 +123,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -169,55 +153,65 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import { useNavigate, useParams } from "react-router";
-import React from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import ReviewForm from "main/components/MyReviews/ReviewForm";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
 import { useBackend } from "main/utils/useBackend";
+import { Link } from "react-router";
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import RoleEmailTable from "main/components/Users/RoleEmailTable";
+import { Button } from "react-bootstrap";
 &nbsp;
-export default function EditReviewPage() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-&nbsp;
-  const { data: review } = useBackend(
-    [`/api/reviews/${id}`],
-    {
-      method: "GET",
-      url: `/api/reviews/${id}`,
-    },
-    {},
+export default function AdminsIndexPage() {
+  const {
+    data: moderators,
+    error: _error,
+    status: _status,
+  } = useBackend(
+    ["/api/admin/all"],
+    { method: "GET", url: "/api/admin/all" },
+    // Stryker disable next-line all : don't test default value of empty list
+    [],
   );
 &nbsp;
-  const itemName = review.item?.name;
-&nbsp;
-  const submitReview = async (formData) =&gt; {
-    try {
-      await axios.put("/api/reviews/reviewer", formData, {
-        params: {
-          id,
-        },
-      });
-      toast(`Review updated for ${itemName}`);
-      navigate(-1);
-    } catch (err) {
-      toast.error(
-        `Error updating review: ${err.response?.data?.error || err.message}`,
-      );
-    }
+  const createButton = () =&gt; {
+    return (
+      &lt;Button
+        variant="primary"
+        as={Link}
+        to="/admin/admins/create"
+        style={{ float: "right" }}
+      &gt;
+        New Admin
+      &lt;/Button&gt;
+    );
   };
 &nbsp;
   return (
     &lt;BasicLayout&gt;
       &lt;div className="pt-2"&gt;
-        &lt;h1&gt;Edit review with id {id}&lt;/h1&gt;
-        &lt;ReviewForm
-          initialItemName={review.item?.name}
-          initialContents={review}
-          submitAction={submitReview}
-          buttonLabel="Update Review"
+        {createButton()}
+        &lt;h1&gt;Admins&lt;/h1&gt;
+        &lt;RoleEmailTable
+          data={moderators}
+          deleteEndpoint="/api/admin/delete"
+          getEndpoint="/api/admin/all"
+          testIdPrefix="AdminsIndexPage"
         /&gt;
+        &lt;p&gt;
+          Note: Initial admins that are set in the &lt;code&gt;ADMIN_EMAILS&lt;/code&gt;
+          &amp;nbsp; configuration cannot be deleted through the application.
+        &lt;/p&gt;
       &lt;/div&gt;
     &lt;/BasicLayout&gt;
   );
