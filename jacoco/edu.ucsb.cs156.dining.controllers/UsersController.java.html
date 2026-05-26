@@ -63,7 +63,7 @@ import org.springframework.web.server.ResponseStatusException;
    * @throws JsonProcessingException if there is an error processing the JSON
    */
   @Operation(summary = &quot;Get a list of all users with a proposed alias&quot;)
-  @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
+  @PreAuthorize(&quot;hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')&quot;)
   @GetMapping(&quot;/admin/usersWithProposedAlias&quot;)
   public ResponseEntity&lt;String&gt; getUsersWithProposedAlias() throws JsonProcessingException {
 <span class="fc" id="L69">    Iterable&lt;User&gt; users = userRepository.findByProposedAliasNotNull();</span>
