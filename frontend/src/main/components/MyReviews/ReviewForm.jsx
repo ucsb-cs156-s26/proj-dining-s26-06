@@ -4,84 +4,85 @@ import { useForm } from "react-hook-form";
 
 export default function ReviewForm({
   initialItemName,
-  initialContents,
   submitAction,
+  initialContents,
   buttonLabel = "Submit Review",
 }) {
-  // Stryker disable next-line all : default empty object is only used when creating a new review
-  const contents = initialContents || {};
-
-  // Stryker disable all : date formatting helper only adapts backend datetime to datetime-local input format
-  const formatDateForInput = (date) => {
-    if (date) {
-      return date.slice(0, 16);
-    }
-    return new Date().toISOString().slice(0, 16);
-  };
-  // Stryker restore all
-
-  const { register, handleSubmit, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
-      // Stryker disable next-line all : default empty string prevents uncontrolled input warnings
-      reviewerComments: contents.reviewerComments || "",
-      itemStars: contents.itemsStars || 5,
-      dateItemServed: formatDateForInput(contents.dateItemServed),
+      reviewerComments: "",
+      itemsStars: 5,
+      dateItemServed: new Date().toISOString().slice(0, 16),
     },
   });
 
   useEffect(() => {
-    if (initialContents) {
+    if (initialContents?.reviewerComments !== undefined) {
       reset({
-        // Stryker disable next-line all : default empty string is used when edited review has no comment
-        reviewerComments: initialContents.reviewerComments || "",
-        itemStars: initialContents.itemsStars || 5,
-        dateItemServed: formatDateForInput(initialContents.dateItemServed),
+        reviewerComments: initialContents.reviewerComments,
+        itemsStars: initialContents.itemsStars,
+        dateItemServed: initialContents.dateItemServed?.slice(0, 16) ?? "",
       });
     }
   }, [initialContents, reset]);
 
+  const onSubmit = (data) => {
+    submitAction({
+      reviewerComments: data.reviewerComments,
+      itemsStars: Number(data.itemsStars),
+      dateItemServed: data.dateItemServed,
+    });
+
+    reset();
+  };
+
   return (
-    <Form onSubmit={handleSubmit(submitAction)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="review-item-name">Item Name</Form.Label>
-        <Form.Control
-          id="review-item-name"
-          type="text"
-          value={initialItemName}
-          disabled
-        />
+        <Form.Label>Item Name</Form.Label>
+        <Form.Control type="text" value={initialItemName} disabled />
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="review-comments">Comments</Form.Label>
+        <Form.Label htmlFor="reviewerComments">Comments</Form.Label>
+
         <Form.Control
-          id="review-comments"
+          id="reviewerComments"
           as="textarea"
           rows={3}
-          {...register("reviewerComments")}
+          isInvalid={Boolean(errors.reviewerComments)}
+          {...register("reviewerComments", {
+            required: "Comments are required",
+          })}
         />
+
+        <Form.Control.Feedback type="invalid">
+          {errors.reviewerComments?.message}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="review-stars">Stars (1 to 5)</Form.Label>
-        <Form.Select
-          id="review-stars"
-          {...register("itemStars", { valueAsNumber: true })}
-        >
-          {[1, 2, 3, 4, 5].map((num) => (
-            <option key={num} value={num}>
-              {num}
+        <Form.Label htmlFor="itemsStars">Stars (1 to 5)</Form.Label>
+        <Form.Select id="itemsStars" {...register("itemsStars")}>
+          {[1, 2, 3, 4, 5].map((n) => (
+            <option key={n} value={n}>
+              {n}
             </option>
           ))}
         </Form.Select>
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="review-date">
+        <Form.Label htmlFor="dateItemServed">
           Date and Time Item was Served
         </Form.Label>
         <Form.Control
-          id="review-date"
+          id="dateItemServed"
           type="datetime-local"
           {...register("dateItemServed")}
         />
