@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -156,7 +156,8 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,18 +168,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">64x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">64x</span>
-<span class="cline-any cline-yes">81x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,16 +180,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">64x</span>
-<span class="cline-any cline-yes">26x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -255,84 +257,85 @@ import { useForm } from "react-hook-form";
 &nbsp;
 export default function ReviewForm({
   initialItemName,
-  initialContents,
   submitAction,
+  initialContents,
   buttonLabel = "Submit Review",
 }) {
-  // Stryker disable next-line all : default empty object is only used when creating a new review
-  const contents = initialContents || {};
-&nbsp;
-  // Stryker disable all : date formatting helper only adapts backend datetime to datetime-local input format
-  const formatDateForInput = (date) =&gt; {
-    if (date) {
-      return date.slice(0, 16);
-    }
-    return new Date().toISOString().slice(0, 16);
-  };
-  // Stryker restore all
-&nbsp;
-  const { register, handleSubmit, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
-      // Stryker disable next-line all : default empty string prevents uncontrolled input warnings
-      reviewerComments: contents.reviewerComments || "",
-      itemStars: contents.itemsStars || 5,
-      dateItemServed: formatDateForInput(contents.dateItemServed),
+      reviewerComments: "",
+      itemsStars: 5,
+      dateItemServed: new Date().toISOString().slice(0, 16),
     },
   });
 &nbsp;
   useEffect(() =&gt; {
-    if (initialContents) {
+    if (initialContents?.reviewerComments !== undefined) {
       reset({
-        // Stryker disable next-line all : default empty string is used when edited review has no comment
-        reviewerComments: initialContents.reviewerComments || "",
-        itemStars: initialContents.itemsStars || 5,
-        dateItemServed: formatDateForInput(initialContents.dateItemServed),
+        reviewerComments: initialContents.reviewerComments,
+        itemsStars: initialContents.itemsStars,
+        dateItemServed: initialContents.dateItemServed?.slice(0, 16) ?? "",
       });
     }
   }, [initialContents, reset]);
 &nbsp;
+  const onSubmit = (data) =&gt; {
+    submitAction({
+      reviewerComments: data.reviewerComments,
+      itemsStars: Number(data.itemsStars),
+      dateItemServed: data.dateItemServed,
+    });
+&nbsp;
+    reset();
+  };
+&nbsp;
   return (
-    &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
+    &lt;Form onSubmit={handleSubmit(onSubmit)}&gt;
       &lt;Form.Group className="mb-3"&gt;
-        &lt;Form.Label htmlFor="review-item-name"&gt;Item Name&lt;/Form.Label&gt;
-        &lt;Form.Control
-          id="review-item-name"
-          type="text"
-          value={initialItemName}
-          disabled
-        /&gt;
+        &lt;Form.Label&gt;Item Name&lt;/Form.Label&gt;
+        &lt;Form.Control type="text" value={initialItemName} disabled /&gt;
       &lt;/Form.Group&gt;
 &nbsp;
       &lt;Form.Group className="mb-3"&gt;
-        &lt;Form.Label htmlFor="review-comments"&gt;Comments&lt;/Form.Label&gt;
+        &lt;Form.Label htmlFor="reviewerComments"&gt;Comments&lt;/Form.Label&gt;
+&nbsp;
         &lt;Form.Control
-          id="review-comments"
+          id="reviewerComments"
           as="textarea"
           rows={3}
-          {...register("reviewerComments")}
+          isInvalid={Boolean(errors.reviewerComments)}
+          {...register("reviewerComments", {
+            required: "Comments are required",
+          })}
         /&gt;
+&nbsp;
+        &lt;Form.Control.Feedback type="invalid"&gt;
+          {errors.reviewerComments?.message}
+        &lt;/Form.Control.Feedback&gt;
       &lt;/Form.Group&gt;
 &nbsp;
       &lt;Form.Group className="mb-3"&gt;
-        &lt;Form.Label htmlFor="review-stars"&gt;Stars (1 to 5)&lt;/Form.Label&gt;
-        &lt;Form.Select
-          id="review-stars"
-          {...register("itemStars", { valueAsNumber: true })}
-        &gt;
-          {[1, 2, 3, 4, 5].map((num) =&gt; (
-            &lt;option key={num} value={num}&gt;
-              {num}
+        &lt;Form.Label htmlFor="itemsStars"&gt;Stars (1 to 5)&lt;/Form.Label&gt;
+        &lt;Form.Select id="itemsStars" {...register("itemsStars")}&gt;
+          {[1, 2, 3, 4, 5].map((n) =&gt; (
+            &lt;option key={n} value={n}&gt;
+              {n}
             &lt;/option&gt;
           ))}
         &lt;/Form.Select&gt;
       &lt;/Form.Group&gt;
 &nbsp;
       &lt;Form.Group className="mb-3"&gt;
-        &lt;Form.Label htmlFor="review-date"&gt;
+        &lt;Form.Label htmlFor="dateItemServed"&gt;
           Date and Time Item was Served
         &lt;/Form.Label&gt;
         &lt;Form.Control
-          id="review-date"
+          id="dateItemServed"
           type="datetime-local"
           {...register("dateItemServed")}
         /&gt;
@@ -349,7 +352,7 @@ export default function ReviewForm({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-22T20:40:56.919Z
+                at 2026-05-26T06:02:42.490Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
