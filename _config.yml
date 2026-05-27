@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/proj-dining-s26-06
 owner: ucsb-cs156-s26
 repo_name: proj-dining-s26-06
-pull_requests: [{"author":{"id":"U_kgDOCeSMMQ","is_bot":false,"login":"brandt465","name":""},"headRefName":"ev-fix-roleinterceptor-lookup","number":43,"title":"ev fix backend to update correctly, add database migration files","url":"https://github.com/ucsb-cs156-s26/proj-dining-s26-06/pull/43"}]
+pull_requests: [{"author":{"id":"U_kgDOCeSMMQ","is_bot":false,"login":"brandt465","name":""},"headRefName":"ev-fix-logging-out-on-admin-pages","number":45,"title":"fix logout mutation not correctly sending user to homepage","url":"https://github.com/ucsb-cs156-s26/proj-dining-s26-06/pull/45"},{"author":{"id":"U_kgDOCeSMMQ","is_bot":false,"login":"brandt465","name":""},"headRefName":"ev-fix-roleinterceptor-lookup","number":43,"title":"ev fix backend to update correctly, add database migration files","url":"https://github.com/ucsb-cs156-s26/proj-dining-s26-06/pull/43"}]
