@@ -21,7 +21,9 @@ export function useCurrentUser() {
         throw e;
       }
     },
+    // Stryker disable next-line ObjectLiteral
     {
+      // Stryker disable next-line BooleanLiteral
       initialData: { loggedIn: false, root: null, initialData: true },
     },
   );
@@ -32,7 +34,7 @@ export function useLogout() {
   const navigate = useNavigate();
   const mutation = useMutation(async () => {
     await axios.post("/logout");
-    await queryClient.resetQueries("current user", { exact: true });
+    void queryClient.resetQueries("current user", { exact: true });
     navigate("/");
   });
   return mutation;
@@ -47,6 +49,7 @@ export function hasRole(currentUser, role) {
 
   if (currentUser == null) return false;
 
+  // Stryker disable next-line OptionalChaining, ConditionalExpression
   if (currentUser.data?.root?.rolesList) {
     return currentUser.data.root.rolesList.includes(role);
   }

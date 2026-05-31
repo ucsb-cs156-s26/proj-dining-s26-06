@@ -28,6 +28,44 @@ describe("utils/useBackend tests", () => {
   });
 
   describe("utils/useBackend useBackend tests", () => {
+    test("useBackend omits placeholder data when initialData is not passed", async () => {
+      const queryClient = new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+          },
+        },
+      });
+      const wrapper = ({ children }) => (
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      );
+
+      const axiosMock = new AxiosMockAdapter(axios);
+      axiosMock.onGet("/api/slow").reply(
+        () =>
+          new Promise((resolve) => {
+            setTimeout(() => resolve([200, []]), 10_000);
+          }),
+      );
+
+      const { result, unmount } = renderHook(
+        () =>
+          useBackend(["/api/slow"], {
+            method: "GET",
+            url: "/api/slow",
+          }),
+        { wrapper },
+      );
+
+      expect(result.current.status).toBeUndefined();
+      expect(result.current.data).toBeUndefined();
+
+      unmount();
+      axiosMock.restore();
+    });
+
     test("useBackend handles 404 error correctly", async () => {
       // See: https://react-query.tanstack.com/guides/testing#turn-off-retries
       const queryClient = new QueryClient({
@@ -148,6 +186,52 @@ describe("utils/useBackend tests", () => {
         "New recommendation Created - id: 17 requester name: testname1",
       );
     });
+    test("useBackend is in loading state when no initialData is provided", () => {
+      const queryClient = new QueryClient();
+      const wrapper = ({ children }) => (
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      );
+
+      var axiosMock = new AxiosMockAdapter(axios);
+      axiosMock.onGet("/api/test").networkError();
+
+      const { result } = renderHook(
+        () => useBackend(["/api/test"], { method: "GET", url: "/api/test" }),
+        { wrapper },
+      );
+
+      // Without initialData, the query should start in loading state, not success
+      expect(result.current.isLoading).toBe(true);
+      expect(result.current.isSuccess).toBe(false);
+    });
+
+    test("useBackendMutation does not retry on failure", async () => {
+      const queryClient = new QueryClient();
+      const wrapper = ({ children }) => (
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      );
+
+      var axiosMock = new AxiosMockAdapter(axios);
+      axiosMock.onPost("/api/test").reply(500);
+
+      const { result } = renderHook(
+        () =>
+          useBackendMutation(() => ({ url: "/api/test", method: "POST" }), {}),
+        { wrapper },
+      );
+
+      act(() => result.current.mutate({}));
+
+      await waitFor(() => result.current.isError);
+
+      // retry: false means only one attempt, no retries
+      expect(axiosMock.history.post.length).toBe(1);
+    });
+
     test("useBackendMutation handles error correctly", async () => {
       // See: https://react-query.tanstack.com/guides/testing#turn-off-retries
       const queryClient = new QueryClient({

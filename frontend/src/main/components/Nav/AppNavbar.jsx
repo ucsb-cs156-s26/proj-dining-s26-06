@@ -59,6 +59,12 @@ export default function AppNavbar({
                     <NavDropdown.Item href="/admin/users">
                       Users
                     </NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/admins">
+                      Admins
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/admin/moderators">
+                      Moderators
+                    </NavDropdown.Item>
                   </NavDropdown>
                 </>
               )}
@@ -71,7 +77,7 @@ export default function AppNavbar({
                     data-testid="appnavbar-moderate-dropdown"
                   >
                     <NavDropdown.Item href="/moderate/aliases">
-                      Moderator Page
+                      Alias Requests
                     </NavDropdown.Item>
                     <NavDropdown.Item href="/moderate">
                       Moderate Reviews
