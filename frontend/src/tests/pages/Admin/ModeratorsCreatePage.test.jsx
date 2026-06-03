@@ -165,7 +165,7 @@ describe("ModeratorsCreatePage tests", () => {
     expect(useBackendMutationSpy).toHaveBeenCalledWith(
       expect.any(Function),
       { onSuccess: expect.any(Function) },
-      [`/api/admin/moderators/get`],
+      [`/api/admin/moderators/all`],
     );
   });
 });

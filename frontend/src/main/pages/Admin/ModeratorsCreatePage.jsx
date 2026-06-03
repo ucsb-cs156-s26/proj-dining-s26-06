@@ -22,7 +22,7 @@ export default function ModeratorsCreatePage({ storybook = false }) {
   const mutation = useBackendMutation(
     objectToAxiosParams,
     { onSuccess },
-    ["/api/admin/moderators/get"], // mutation makes this key stale so that pages relying on it reload
+    ["/api/admin/moderators/all"], // mutation makes this key stale so that pages relying on it reload
   );
 
   const onSubmit = async (data) => {

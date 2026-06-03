@@ -46,7 +46,7 @@ describe("ModeratorsIndexPage tests", () => {
 
   test("Renders with New Moderator Button", async () => {
     setupAdminUser();
-    axiosMock.onGet("/api/admin/moderators/get").reply(200, []);
+    axiosMock.onGet("/api/admin/moderators/all").reply(200, []);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -67,7 +67,7 @@ describe("ModeratorsIndexPage tests", () => {
   test("renders three items correctly", async () => {
     setupAdminUser();
     axiosMock
-      .onGet("/api/admin/moderators/get")
+      .onGet("/api/admin/moderators/all")
       .reply(200, roleEmailFixtures.threeItems);
 
     render(
@@ -99,7 +99,7 @@ describe("ModeratorsIndexPage tests", () => {
   test("renders empty table when backend unavailable", async () => {
     setupAdminUser();
 
-    axiosMock.onGet("/api/admin/moderators/get").timeout();
+    axiosMock.onGet("/api/admin/moderators/all").timeout();
 
     const restoreConsole = mockConsole();
 
@@ -117,7 +117,7 @@ describe("ModeratorsIndexPage tests", () => {
 
     const errorMessage = console.error.mock.calls[0][0];
     expect(errorMessage).toMatch(
-      "Error communicating with backend via GET on /api/admin/moderators/get",
+      "Error communicating with backend via GET on /api/admin/moderators/all",
     );
     restoreConsole();
   });
@@ -126,7 +126,7 @@ describe("ModeratorsIndexPage tests", () => {
     setupAdminUser();
 
     axiosMock
-      .onGet("/api/admin/moderators/get")
+      .onGet("/api/admin/moderators/all")
       .reply(200, roleEmailFixtures.threeItems);
     axiosMock
       .onDelete("/api/admin/moderators/delete")
@@ -182,8 +182,8 @@ describe("ModeratorsIndexPage tests", () => {
     );
 
     expect(useBackendSpy).toHaveBeenCalledWith(
-      [`/api/admin/moderators/get`],
-      { method: "GET", url: `/api/admin/moderators/get` },
+      [`/api/admin/moderators/all`],
+      { method: "GET", url: `/api/admin/moderators/all` },
       [],
     );
   });
