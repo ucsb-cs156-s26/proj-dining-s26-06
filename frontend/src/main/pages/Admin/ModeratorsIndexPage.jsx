@@ -11,8 +11,8 @@ export default function ModeratorsIndexPage() {
     error: _error,
     status: _status,
   } = useBackend(
-    ["/api/admin/moderators/get"],
-    { method: "GET", url: "/api/admin/moderators/get" },
+    ["/api/admin/moderators/all"],
+    { method: "GET", url: "/api/admin/moderators/all" },
     // Stryker disable next-line all : don't test default value of empty list
     [],
   );
@@ -38,7 +38,7 @@ export default function ModeratorsIndexPage() {
         <RoleEmailTable
           data={moderators}
           deleteEndpoint="/api/admin/moderators/delete"
-          getEndpoint="/api/admin/moderators/get"
+          getEndpoint="/api/admin/moderators/all"
           testIdPrefix="ModeratorsIndexPage"
         />
       </div>
