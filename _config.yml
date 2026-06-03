@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/proj-dining-s26-06
 owner: ucsb-cs156-s26
 repo_name: proj-dining-s26-06
-pull_requests: [{"author":{"id":"U_kgDOCeSMMQ","is_bot":false,"login":"brandt465","name":""},"headRefName":"ev-fix-mod-table-api-endpoint","number":46,"title":"fix wrong api endpoint being called in mod table","url":"https://github.com/ucsb-cs156-s26/proj-dining-s26-06/pull/46"}]
+pull_requests: [{"author":{"id":"U_kgDOCVG5mA","is_bot":false,"login":"dongyi-xia","name":""},"headRefName":"dx-fix-edit-review-page","number":47,"title":"dx-fix edit review page","url":"https://github.com/ucsb-cs156-s26/proj-dining-s26-06/pull/47"},{"author":{"id":"U_kgDOCeSMMQ","is_bot":false,"login":"brandt465","name":""},"headRefName":"ev-fix-mod-table-api-endpoint","number":46,"title":"fix wrong api endpoint being called in mod table","url":"https://github.com/ucsb-cs156-s26/proj-dining-s26-06/pull/46"}]
