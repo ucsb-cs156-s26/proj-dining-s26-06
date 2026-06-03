@@ -176,10 +176,10 @@ public class ReviewController extends ApiController {
       throw new AccessDeniedException("No permission to edit review");
     }
 
-    if (incoming.getItemStars() < 1 || incoming.getItemStars() > 5) {
+    if (incoming.getItemsStars() < 1 || incoming.getItemsStars() > 5) {
       throw new IllegalArgumentException("Items stars must be between 1 and 5.");
     } else {
-      oldReview.setItemsStars(incoming.getItemStars());
+      oldReview.setItemsStars(incoming.getItemsStars());
     }
 
     if (incoming.getReviewerComments() != null

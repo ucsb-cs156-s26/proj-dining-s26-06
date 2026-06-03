@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class EditedReview {
-  private Long itemStars;
+  private Long itemsStars;
   private String reviewerComments;
   private LocalDateTime dateItemServed;
 }
