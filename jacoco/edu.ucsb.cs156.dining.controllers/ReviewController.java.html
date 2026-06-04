@@ -176,10 +176,10 @@ import org.springframework.web.bind.annotation.RestController;
 <span class="fc" id="L176">      throw new AccessDeniedException(&quot;No permission to edit review&quot;);</span>
     }
 
-<span class="fc bfc" id="L179" title="All 4 branches covered.">    if (incoming.getItemStars() &lt; 1 || incoming.getItemStars() &gt; 5) {</span>
+<span class="fc bfc" id="L179" title="All 4 branches covered.">    if (incoming.getItemsStars() &lt; 1 || incoming.getItemsStars() &gt; 5) {</span>
 <span class="fc" id="L180">      throw new IllegalArgumentException(&quot;Items stars must be between 1 and 5.&quot;);</span>
     } else {
-<span class="fc" id="L182">      oldReview.setItemsStars(incoming.getItemStars());</span>
+<span class="fc" id="L182">      oldReview.setItemsStars(incoming.getItemsStars());</span>
     }
 
 <span class="fc bfc" id="L185" title="All 2 branches covered.">    if (incoming.getReviewerComments() != null</span>
