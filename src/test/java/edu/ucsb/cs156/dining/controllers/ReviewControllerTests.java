@@ -459,7 +459,7 @@ public class ReviewControllerTests extends ControllerTestCase {
         EditedReview.builder()
             .reviewerComments("test")
             .dateItemServed(LocalDateTime.of(2022, 1, 1, 0, 0))
-            .itemStars(2L)
+            .itemsStars(2L)
             .build();
 
     String requestBody = mapper.writeValueAsString(reviewEdit);
@@ -501,14 +501,14 @@ public class ReviewControllerTests extends ControllerTestCase {
         EditedReview.builder()
             .reviewerComments("test")
             .dateItemServed(LocalDateTime.of(2022, 1, 1, 0, 0))
-            .itemStars(0L)
+            .itemsStars(0L)
             .build();
 
     EditedReview reviewTooHigh =
         EditedReview.builder()
             .reviewerComments("test")
             .dateItemServed(LocalDateTime.of(2022, 1, 1, 0, 0))
-            .itemStars(6L)
+            .itemsStars(6L)
             .build();
 
     String requestBodyTooLow = mapper.writeValueAsString(reviewTooLow);
@@ -560,7 +560,7 @@ public class ReviewControllerTests extends ControllerTestCase {
         EditedReview.builder()
             .reviewerComments("test")
             .dateItemServed(LocalDateTime.of(2022, 1, 1, 0, 0))
-            .itemStars(1L)
+            .itemsStars(1L)
             .build();
 
     String requestBody = mapper.writeValueAsString(review);
@@ -601,7 +601,7 @@ public class ReviewControllerTests extends ControllerTestCase {
         EditedReview.builder()
             .reviewerComments("test")
             .dateItemServed(LocalDateTime.of(2022, 1, 1, 0, 0))
-            .itemStars(5L)
+            .itemsStars(5L)
             .build();
 
     String requestBody = mapper.writeValueAsString(review);
@@ -642,7 +642,7 @@ public class ReviewControllerTests extends ControllerTestCase {
         EditedReview.builder()
             .reviewerComments("   ")
             .dateItemServed(LocalDateTime.of(2022, 1, 1, 0, 0))
-            .itemStars(2L)
+            .itemsStars(2L)
             .build();
 
     Review reviewResponse =
@@ -705,7 +705,7 @@ public class ReviewControllerTests extends ControllerTestCase {
         EditedReview.builder()
             .reviewerComments(null)
             .dateItemServed(LocalDateTime.of(2022, 1, 1, 0, 0))
-            .itemStars(2L)
+            .itemsStars(2L)
             .build();
 
     Review reviewResponse =
@@ -769,7 +769,7 @@ public class ReviewControllerTests extends ControllerTestCase {
         EditedReview.builder()
             .reviewerComments("test")
             .dateItemServed(LocalDateTime.of(2022, 1, 1, 0, 0))
-            .itemStars(2L)
+            .itemsStars(2L)
             .build();
 
     Review reviewResponse =
@@ -816,7 +816,7 @@ public class ReviewControllerTests extends ControllerTestCase {
         EditedReview.builder()
             .reviewerComments("test")
             .dateItemServed(LocalDateTime.of(2022, 1, 1, 0, 0))
-            .itemStars(2L)
+            .itemsStars(2L)
             .build();
 
     when(reviewRepository.findById(eq(1L))).thenReturn(Optional.empty());
